@@ -1,0 +1,15 @@
+{
+  "short_name": "Brown Booys",
+  "name": "Brown Booys - The Food Trailer Shop",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0f0f0f",
+  "background_color": "#0f0f0f"
+}
