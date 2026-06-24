@@ -1,30 +1,26 @@
 "use strict";
-const cloudinaryPkg = require("cloudinary");
+const cloudinary = require("cloudinary");
 const CloudinaryStorage = require("multer-storage-cloudinary");
 const multer = require("multer");
 
-cloudinaryPkg.v2.config({
+cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key:    process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const menuStorage = new CloudinaryStorage({
-  cloudinary: cloudinaryPkg,
-  params: {
-    folder:          "brownbooys/menu",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation:  [{ width: 800, height: 600, crop: "fill", quality: "auto:good" }],
-  },
+  cloudinary: cloudinary,
+  folder: "brownbooys/menu",
+  allowedFormats: ["jpg", "jpeg", "png", "webp"],
+  transformation: [{ width: 800, height: 600, crop: "fill", quality: "auto:good" }],
 });
 
 const offerStorage = new CloudinaryStorage({
-  cloudinary: cloudinaryPkg,
-  params: {
-    folder:          "brownbooys/offers",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation:  [{ width: 1200, height: 420, crop: "fill", quality: "auto:good" }],
-  },
+  cloudinary: cloudinary,
+  folder: "brownbooys/offers",
+  allowedFormats: ["jpg", "jpeg", "png", "webp"],
+  transformation: [{ width: 1200, height: 420, crop: "fill", quality: "auto:good" }],
 });
 
 const FILE_LIMIT = 8 * 1024 * 1024;
@@ -32,4 +28,4 @@ const FILE_LIMIT = 8 * 1024 * 1024;
 const uploadMenuImage  = multer({ storage: menuStorage,  limits: { fileSize: FILE_LIMIT } });
 const uploadOfferImage = multer({ storage: offerStorage, limits: { fileSize: FILE_LIMIT } });
 
-module.exports = { cloudinary: cloudinaryPkg.v2, uploadMenuImage, uploadOfferImage };
+module.exports = { cloudinary, uploadMenuImage, uploadOfferImage };
