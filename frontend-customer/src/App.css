@@ -886,6 +886,7 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 28vw, 280px), 1fr));
   gap: clamp(12px, 2vw, 20px);
+  align-items: start;
 }
 
 /* ============================================================
@@ -900,8 +901,9 @@ ul, ol {
   cursor: pointer;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   animation: fadeInUp 0.5s ease both;
-  display: flex;
+ display: flex;
   flex-direction: column;
+  align-self: start;
 }
 
 .menu-card::before {
