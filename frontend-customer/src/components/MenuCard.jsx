@@ -2,7 +2,7 @@
 import React from "react";
 
 export default function MenuCard({ item, lang, openItem, setOpenItem, onAdd }) {
-  const itemKey = item.id ?? item._id;
+ const itemKey = String(item._id || item.id);
   const isOpen = openItem === itemKey;
   const hasVariants = item.variants?.length > 0;
 
