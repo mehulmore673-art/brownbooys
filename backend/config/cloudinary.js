@@ -1,16 +1,16 @@
 "use strict";
-const cloudinary = require("cloudinary").v2;
+const cloudinaryPkg = require("cloudinary");
 const CloudinaryStorage = require("multer-storage-cloudinary");
 const multer = require("multer");
 
-cloudinary.config({
+cloudinaryPkg.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key:    process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const menuStorage = new CloudinaryStorage({
-  cloudinary,
+  cloudinary: cloudinaryPkg,
   params: {
     folder:          "brownbooys/menu",
     allowed_formats: ["jpg", "jpeg", "png", "webp"],
@@ -19,7 +19,7 @@ const menuStorage = new CloudinaryStorage({
 });
 
 const offerStorage = new CloudinaryStorage({
-  cloudinary,
+  cloudinary: cloudinaryPkg,
   params: {
     folder:          "brownbooys/offers",
     allowed_formats: ["jpg", "jpeg", "png", "webp"],
@@ -32,4 +32,4 @@ const FILE_LIMIT = 8 * 1024 * 1024;
 const uploadMenuImage  = multer({ storage: menuStorage,  limits: { fileSize: FILE_LIMIT } });
 const uploadOfferImage = multer({ storage: offerStorage, limits: { fileSize: FILE_LIMIT } });
 
-module.exports = { cloudinary, uploadMenuImage, uploadOfferImage };
+module.exports = { cloudinary: cloudinaryPkg.v2, uploadMenuImage, uploadOfferImage };
