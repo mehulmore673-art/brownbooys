@@ -2,10 +2,9 @@
 import React from "react";
 
 export default function MenuCard({ item, lang, openItem, setOpenItem, onAdd }) {
-  // BUG FIX: MongoDB items use _id; seeded items use numeric id.
-  // Always resolve to a stable key so variant expand/collapse works.
   const itemKey = item.id ?? item._id;
   const isOpen = openItem === itemKey;
+  const hasVariants = item.variants?.length > 0;
 
   return (
     <article className="menu-card shine">
@@ -36,12 +35,12 @@ export default function MenuCard({ item, lang, openItem, setOpenItem, onAdd }) {
         {/* Title / variant toggle */}
         <button
           className="menu-card__name"
-          onClick={() => item.variants && setOpenItem(isOpen ? null : itemKey)}
+          onClick={() => hasVariants && setOpenItem(isOpen ? null : itemKey)}
           aria-expanded={isOpen}
           aria-label={item.title?.[lang] || item.title?.en}
         >
           <span className="menu-card__name-text">{item.title?.[lang] || item.title?.en}</span>
-          {item.variants && (
+          {hasVariants && (
             <span className="menu-card__variant-hint">
               {isOpen ? "▲" : "▼"} {item.variants.length} options
             </span>
@@ -60,7 +59,7 @@ export default function MenuCard({ item, lang, openItem, setOpenItem, onAdd }) {
         </div>
 
         {/* ── Variants (expanded) ── */}
-        {item.variants && isOpen && (
+        {hasVariants && isOpen && (
           <ul className="menu-card__variants">
             {item.variants.map((v, i) => (
               <li key={i} className="menu-card__variant-row">
@@ -81,7 +80,7 @@ export default function MenuCard({ item, lang, openItem, setOpenItem, onAdd }) {
         )}
 
         {/* ── Single price + Add ── */}
-        {!item.variants && (
+        {!hasVariants && (
           <div className="menu-card__footer">
             <div className="menu-card__price-wrap">
               <span className="menu-card__price">₹{item.price}</span>
